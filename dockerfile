@@ -1,6 +1,7 @@
 FROM maven as builder
 COPY . /mnt/onlinebookstore/.
 WORKDIR /mnt/onlinebookstore
+
 RUN mvn clean verify sonar:sonar \
  -Dsonar.projectKey=demo \
  -Dsonar.projectName='demo' \
@@ -9,5 +10,10 @@ RUN mvn clean verify sonar:sonar \
 
 RUN mvn package
 
+FROM amazon/aws-cli:2.4.5 AS aws
+COPY --from=builder /mnt/onlinebookstore/target/*.war /tmp/onlinebookstore.war
+WORKDIR /tmp
+RUN aws s3 cp onlinebookstore.war s3://onlinebookstore-jenkins/onlinebookstore.war
+
 FROM tomcat
-COPY --from=builder /mnt/onlinebookstore/target/*.war webapps/.
+COPY --from=aws /tmp/onlinebookstore.war webapps/.
