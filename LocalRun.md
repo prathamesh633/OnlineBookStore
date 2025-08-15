@@ -22,14 +22,18 @@ db.password=bookpass
 ```
 
 Next, inside the lib/ folder of your Apache Tomcat 9 installation, download the MySQL connector using:
-
-`curl -O https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.33/mysql-connector-java-8.0.33.jar`
+```
+curl -O https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.33/mysql-connector-java-8.0.33.jar
+```
 
 From the onlinebookstore folder, build the application using:
-`mvn clean package`
+```mvn clean package
+```
 
 Once packaged, copy the .war file from the target/ folder to the webapps/ folder in your Apache Tomcat 9 installation. Then, navigate to the /bin folder in Apache Tomcat 9 and start the server using:
-`bash catalina.sh start`
+```
+bash catalina.sh start
+```
 
 Finally, open your browser and go to http://localhost:8080/onlinebookstore to access the application. Your OnlineBookstore app should now be connected to the local MySQL database and running successfully.
 
