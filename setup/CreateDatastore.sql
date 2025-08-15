@@ -11,7 +11,7 @@ CREATE TABLE if not exists books
      quantity  REAL
   ); 
   
-  CREATE TABLE if not exists users
+CREATE TABLE if not exists users
   ( 
      username  VARCHAR(100) PRIMARY KEY, 
      password  VARCHAR(100) NOT NULL, 
