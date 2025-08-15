@@ -12,12 +12,13 @@ FLUSH PRIVILEGES;`
 
 Update the src/main/resources/application.properties file with your MySQL credentials:
 
-`db.driver=com.mysql.cj.jdbc.Driver
+```db.driver=com.mysql.cj.jdbc.Driver
 db.host=jdbc:mysql://localhost
 db.port=3306
 db.name=onlinebookstore
 db.username=bookuser
-db.password=bookpass`
+db.password=bookpass
+```
 
 Next, inside the lib/ folder of your Apache Tomcat 9 installation, download the MySQL connector using:
 
