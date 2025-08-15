@@ -1,4 +1,4 @@
-# Connecting MySQL Database to the OnlineBookstore App
+# Connecting MySQL Database to onlinebookstore locally
 
 Follow these steps to set up and connect MySQL with the OnlineBookstore application in your local environment.
 
