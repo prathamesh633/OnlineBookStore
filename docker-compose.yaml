@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: onlinebookstore
+      MYSQL_USER: bookstore_user
+      MYSQL_PASSWORD: bookstore_pass
+    ports:
+      - "3307:3306"
+    networks:
+      - bookstore-net
+
+  onlinebookstore:
+    build: .
+    container_name: bookstore_app
+    ports:
+      - "8080:8080"
+    environment:
+      DB_DRIVER: com.mysql.cj.jdbc.Driver
+      DB_HOST: jdbc:mysql://mysql:3306
+      DB_NAME: onlinebookstore
+      DB_USERNAME: bookstore_user
+      DB_PASSWORD: bookstore_pass
+    depends_on:
+      - mysql
+    networks:
+      - bookstore-net
+
+networks:
+  bookstore-net:
+    driver: bridge
