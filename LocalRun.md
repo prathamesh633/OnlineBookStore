@@ -27,7 +27,8 @@ curl -O https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.33/mysql-c
 ```
 
 From the onlinebookstore folder, build the application using:
-```mvn clean package
+```
+mvn clean package
 ```
 
 Once packaged, copy the .war file from the target/ folder to the webapps/ folder in your Apache Tomcat 9 installation. Then, navigate to the /bin folder in Apache Tomcat 9 and start the server using:
