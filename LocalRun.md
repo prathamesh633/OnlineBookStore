@@ -2,7 +2,12 @@
 
 Follow these steps to set up and connect MySQL with the OnlineBookstore application in your local environment.
 
-Download MySQL from the official website: [MySQL Downloads](https://dev.mysql.com/downloads/mysql/). Once installed, open **PowerShell** as **Administrator** and start the MySQL service using `net start mysql`. After MySQL is running, create a dummy database by following the instructions in the `dummy_database.md` file.
+Download MySQL from the official website: [MySQL Downloads](https://dev.mysql.com/downloads/mysql/). Once installed, open **PowerShell** as **Administrator** and start the MySQL service using:
+```
+net start mysql
+```
+
+After MySQL is running, create a dummy database by following the instructions in the `dummy_database.md` file.
 
 The default MySQL admin credentials are `Username: root` and `Password: root`. If you want to create a new user for the OnlineBookstore app, run:
 ```sql
