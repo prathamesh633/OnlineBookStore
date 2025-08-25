@@ -28,7 +28,7 @@ public class LogoutServlet extends HttpServlet {
             rd.include(req, res);
 //            StoreUtil.setActiveTab(pw, "logout");
             if (logout) {
-                pw.println("<table class=\"tab\"><tr><td>Successfully logged out!</td></tr></table>");
+                pw.println("<table class=\"tab\" style=\"margin:auto;\"><tr><td>Successfully logged out!</td></tr></table>");
             }
 
         } catch (Exception e) {

@@ -46,12 +46,8 @@ public class ViewBookServlet extends HttpServlet {
             StoreUtil.setActiveTab(pw, "books");
 
             // Show the heading for the page
-            pw.println("<div id='topmid' style='background-color:grey'>Available Books"
-                    + "<form action=\"cart\" method=\"post\" style='float:right; margin-right:20px'>"
-                    + "<input type='submit' class=\"btn btn-primary\" name='cart' value='Proceed'/></form>"
-                    + "</div>");
-            pw.println("<div class=\"container\">\r\n"
-                    + "        <div class=\"card-columns\">");
+            pw.println("<div id='topmid' style='background-color:grey'>Available Books</div>");
+            pw.println("<div class='container'><div class='row'>");
 
             // Add or Remove items from the cart, if requested
             StoreUtil.updateCartItems(req);
@@ -65,9 +61,9 @@ public class ViewBookServlet extends HttpServlet {
             }
 
             // Checkout Button
-            pw.println("</div>"
-                    + "<div style='float:auto'><form action=\"cart\" method=\"post\">"
-                    + "<input type='submit' class=\"btn btn-success\" name='cart' value='Proceed to Checkout'/></form>"
+            pw.println("</div></div>" 
+                    + "<div style='float:auto'><form action=\"cart\" method=\"post\">" 
+                    + "<input type='submit' class=\"btn btn-success\" name='cart' value='Proceed to Checkout'/></form>" 
                     + "    </div>");
 
         } catch (Exception e) {
@@ -79,66 +75,54 @@ public class ViewBookServlet extends HttpServlet {
         String bCode = book.getBarcode();
         int bQty = book.getQuantity();
 
-        // Quantity of the current book added to the cart
         int cartItemQty = 0;
         if (session.getAttribute("qty_" + bCode) != null) {
-            // Quantity of each book in the cart will be added in the session prefixed with
-            // 'qty_' following with bookId
             cartItemQty = (int) session.getAttribute("qty_" + bCode);
         }
 
-        // Button To Add/Remove item from the cart
-        String button = "";
+        String button;
         if (bQty > 0) {
-            // If no items in the cart, show add to cart button
-            // If items is added to the cart, then show +, - button to add/remove more items
-            button = "<form action=\"viewbook\" method=\"post\">"
-                    + "<input type='hidden' name = 'selectedBookId' value = " + bCode + ">"
-                    + "<input type='hidden' name='qty_" + bCode + "' value='1'/>"
-                    + (cartItemQty == 0
-                            ? "<input type='submit' class=\"btn btn-primary\" name='addToCart' value='Add To Cart'/></form>"
-                            : "<form method='post' action='cart'>"
-                                    + "<button type='submit' name='removeFromCart' class=\"glyphicon glyphicon-minus btn btn-danger\"></button> "
-                                    + "<input type='hidden' name='selectedBookId' value='" + bCode + "'/>"
-                                    + cartItemQty
-                                    + " <button type='submit' name='addToCart' class=\"glyphicon glyphicon-plus btn btn-success\"></button></form>")
-                    + "";
+            if (cartItemQty == 0) {
+                button = "<form action='viewbook' method='post'>"
+                        + "<input type='hidden' name='selectedBookId' value='" + bCode + "'>"
+                        + "<input type='hidden' name='qty_" + bCode + "' value='1'/>"
+                        + "<input type='submit' class='btn btn-primary' name='addToCart' value='Add To Cart'/></form>";
+            } else {
+                button = "<form method='post' action='cart'>"
+                        + "<button type='submit' name='removeFromCart' class='glyphicon glyphicon-minus btn btn-danger'></button> "
+                        + "<input type='hidden' name='selectedBookId' value='" + bCode + "'/>"
+                        + cartItemQty
+                        + " <button type='submit' name='addToCart' class='glyphicon glyphicon-plus btn btn-success'></button></form>";
+            }
         } else {
-            // If available Quantity is zero, show out of stock button
-            button = "<p class=\"btn btn-danger\">Out Of Stock</p>\r\n";
+            button = "<p class='btn btn-danger'>Out Of Stock</p>";
         }
 
-        // Bootstrap card to show the book data
-        return "<div class=\"card\">\r\n"
-                + "                <div class=\"row card-body\">\r\n"
-                + "                    <img class=\"col-sm-6\" src=\"logo.png\" alt=\"Card image cap\">\r\n"
-                + "                    <div class=\"col-sm-6\">\r\n"
-                + "                        <h5 class=\"card-title text-success\">" + book.getName() + "</h5>\r\n"
-                + "                        <p class=\"card-text\">\r\n"
-                + "                        Author: <span class=\"text-primary\" style=\"font-weight:bold;\"> "
-                + book.getAuthor()
-                + "</span><br>\r\n"
-                + "                        </p>\r\n"
-                + "                        \r\n"
-                + "                    </div>\r\n"
-                + "                </div>\r\n"
-                + "                <div class=\"row card-body\">\r\n"
-                + "                    <div class=\"col-sm-6\">\r\n"
-                + "                        <p class=\"card-text\">\r\n"
-                + "                        <span>Id: " + bCode + "</span>\r\n"
-                + (bQty < 20 ? "<br><span class=\"text-danger\">Only " + bQty + " items left</span>\r\n"
-                        : "<br><span class=\"text-success\">Trending</span>\r\n")
-                + "                        </p>\r\n"
-                + "                    </div>\r\n"
-                + "                    <div class=\"col-sm-6\">\r\n"
-                + "                        <p class=\"card-text\">\r\n"
-                + "                        Price: <span style=\"font-weight:bold; color:green\"> &#8377; "
-                + book.getPrice()
-                + " </span>\r\n"
-                + "                        </p>\r\n"
+        return "<div class='col-md-4'><div class='card'>"
+                + "<div class='row card-body'>"
+                + "<img class='col-sm-6' src='logo.png' alt='Card image cap'>"
+                + "<div class='col-sm-6'>"
+                + "<h5 class='card-title text-success'>" + book.getName() + "</h5>"
+                + "<p class='card-text'>"
+                + "Author: <span class='text-primary' style='font-weight:bold;'> " + book.getAuthor() + "</span><br>"
+                + "</p>"
+                + "</div>"
+                + "</div>"
+                + "<div class='row card-body'>"
+                + "<div class='col-sm-6'>"
+                + "<p class='card-text'>"
+                + "<span>Id: " + bCode + "</span>"
+                + (bQty < 20 ? "<br><span class='text-danger'>Only " + bQty + " items left</span>"
+                        : "<br><span class='text-success'>Trending</span>")
+                + "</p>"
+                + "</div>"
+                + "<div class='col-sm-6'>"
+                + "<p class='card-text'>"
+                + "Price: <span style='font-weight:bold; color:green'> &#8377; " + book.getPrice() + " </span>"
+                + "</p>"
                 + button
-                + "                    </div>\r\n"
-                + "                </div>\r\n"
-                + "            </div>";
+                + "</div>"
+                + "</div>"
+                + "</div></div>";
     }
 }

@@ -24,11 +24,10 @@ public class StoreUtil {
      * Modify the active tab in the page menu bar
      */
     public static void setActiveTab(PrintWriter pw, String activeTab) {
-
-        pw.println("<script>document.getElementById(activeTab).classList.remove(\"active\");activeTab=" + activeTab
+        pw.println("<script>"
+                + "document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));"
+                + "document.getElementById('" + activeTab + "').classList.add('active');"
                 + "</script>");
-        pw.println("<script>document.getElementById('" + activeTab + "').classList.add(\"active\");</script>");
-
     }
 
     /**
