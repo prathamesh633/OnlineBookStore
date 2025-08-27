@@ -44,9 +44,14 @@ public class ViewBookServlet extends HttpServlet {
 
             // Set Available Books tab as active
             StoreUtil.setActiveTab(pw, "books");
+            
+            // Checkout Button
+            pw.println("<div style='float:right; margin-right:20px;'><form action=\"cart\" method=\"post\">" 
+                    + "<input type='submit' class=\"btn btn-success\" name='cart' value='Proceed to Checkout'/></form>" 
+                    + "    </div>");
 
             // Show the heading for the page
-            pw.println("<div id='topmid' style='background-color:grey'>Available Books</div>");
+            
             pw.println("<div class='container'><div class='row'>");
 
             // Add or Remove items from the cart, if requested
@@ -60,11 +65,8 @@ public class ViewBookServlet extends HttpServlet {
 
             }
 
-            // Checkout Button
-            pw.println("</div></div>" 
-                    + "<div style='float:auto'><form action=\"cart\" method=\"post\">" 
-                    + "<input type='submit' class=\"btn btn-success\" name='cart' value='Proceed to Checkout'/></form>" 
-                    + "    </div>");
+            //End of row and container
+            pw.println("</div></div>");
 
         } catch (Exception e) {
             e.printStackTrace();
